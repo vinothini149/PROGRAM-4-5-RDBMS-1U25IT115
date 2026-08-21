@@ -1,5 +1,5 @@
-CREATE DATABASE tusionDB;
-USE tusionDB;
+CREATE DATABASE collegeDB;
+USE collegeDB;
 
 CREATE TABLE Course(
     CourseID INT PRIMARY KEY,
