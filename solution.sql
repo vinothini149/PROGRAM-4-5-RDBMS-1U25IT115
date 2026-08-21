@@ -1,5 +1,5 @@
-CREATE DATABASE tusionDB;
-USE tusionDB;
+CREATE DATABASE collegeDB;
+USE collegeDB;
 CREATE TABLE Course(
     CourseID INT(5) PRIMARY KEY,
     CourseName VARCHAR(20)NOT NULL,
@@ -25,5 +25,5 @@ VALUES
     (1001,'arun','male',101),
     (1002,'divya','female',102),
     (1003,'karthik','male',101);
-SELECT*FROM student;
+SELECT*FROM Student;
 
