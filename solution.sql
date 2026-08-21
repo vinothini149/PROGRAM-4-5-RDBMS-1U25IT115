@@ -1,14 +1,14 @@
 CREATE DATABASE tusionDB;
 USE tusionDB;
 
-CREATE TABLE Course(
+CREATE TABLE Course (
     CourseID INT PRIMARY KEY,
     CourseName VARCHAR(50) NOT NULL,
     Credits INT,
     DepartmentID VARCHAR(10) NOT NULL
 );
 
-INSERT INTO Course(CourseID, CourseName, Credits, DepartmentID)
+INSERT INTO Course (CourseID, CourseName, Credits, DepartmentID)
 VALUES
 (101, 'database management system', 4, '1'),
 (102, 'data structures', 3, '2'),
@@ -16,14 +16,14 @@ VALUES
 
 SELECT * FROM Course;
 
-CREATE TABLE Student(
+CREATE TABLE Student (
     StudentID INT PRIMARY KEY,
     StudentName VARCHAR(20) NOT NULL,
     Gender VARCHAR(10),
     DepartmentID VARCHAR(10) NOT NULL
 );
 
-INSERT INTO Student(StudentID, StudentName, Gender, DepartmentID)
+INSERT INTO Student (StudentID, StudentName, Gender, DepartmentID)
 VALUES
 (1001, 'arun', 'male', '101'),
 (1002, 'divya', 'female', '102'),
