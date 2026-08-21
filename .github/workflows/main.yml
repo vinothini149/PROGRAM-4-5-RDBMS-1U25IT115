@@ -1,0 +1,218 @@
+name: Program 4 and 5 Auto Grading
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+
+  grade:
+
+    runs-on: ubuntu-latest
+
+    services:
+
+      mysql:
+        image: mysql:8.0
+
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: CollegeDB
+
+        ports:
+          - 3306:3306
+
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -proot"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+
+    steps:
+
+      # =====================================
+      # STEP 1
+      # =====================================
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+
+      # =====================================
+      # STEP 2
+      # =====================================
+
+      - name: Install MySQL Client
+        run: |
+
+          sudo apt-get update
+
+          sudo apt-get install -y mysql-client
+
+
+      # =====================================
+      # STEP 3
+      # =====================================
+
+      - name: Wait for MySQL
+        run: |
+
+          for i in {1..30}
+          do
+
+            if mysqladmin ping \
+              -h 127.0.0.1 \
+              -P 3306 \
+              -u root \
+              -proot \
+              --protocol=tcp \
+              --silent
+
+            then
+
+              echo "MySQL is ready."
+
+              break
+
+            fi
+
+            echo "Waiting for MySQL..."
+
+            sleep 2
+
+          done
+
+
+      # =====================================
+      # STEP 4
+      # =====================================
+
+      - name: Create Student Table
+        run: |
+
+          mysql \
+            -h 127.0.0.1 \
+            -P 3306 \
+            -u root \
+            -proot \
+            --protocol=tcp \
+            CollegeDB <<'SQL'
+
+          CREATE TABLE Student (
+              StudentID INT PRIMARY KEY,
+              StudentName VARCHAR(20),
+              DOB DATE,
+              Gender VARCHAR(10),
+              DepartmentID INT,
+              Email VARCHAR(30),
+              PhoneNumber INT
+          );
+
+          SQL
+
+          echo "Student table created."
+
+
+      # =====================================
+      # STEP 5
+      # =====================================
+
+      - name: Display Student Table
+        run: |
+
+          echo "========== STUDENT TABLE =========="
+
+          mysql \
+            -h 127.0.0.1 \
+            -P 3306 \
+            -u root \
+            -proot \
+            --protocol=tcp \
+            -e "USE CollegeDB; DESCRIBE Student;"
+
+
+      # =====================================
+      # STEP 6
+      # =====================================
+
+      - name: Execute Student Program
+        run: |
+
+          echo "======================================"
+          echo "Executing solution.sql"
+          echo "======================================"
+
+          cat solution.sql
+
+          mysql \
+            -h 127.0.0.1 \
+            -P 3306 \
+            -u root \
+            -proot \
+            --protocol=tcp \
+            CollegeDB < solution.sql
+
+          echo "Student program executed successfully."
+
+
+      # =====================================
+      # STEP 7
+      # =====================================
+
+      - name: Display Course Structure
+        run: |
+
+          echo "========== COURSE TABLE =========="
+
+          mysql \
+            -h 127.0.0.1 \
+            -P 3306 \
+            -u root \
+            -proot \
+            --protocol=tcp \
+            -e "USE CollegeDB; DESCRIBE Course;"
+
+
+      # =====================================
+      # STEP 8
+      # =====================================
+
+      - name: Display Student Records
+        run: |
+
+          echo "========== STUDENT RECORDS =========="
+
+          mysql \
+            -h 127.0.0.1 \
+            -P 3306 \
+            -u root \
+            -proot \
+            --protocol=tcp \
+            -e "USE CollegeDB; SELECT * FROM Student;"
+
+
+      # =====================================
+      # STEP 9
+      # =====================================
+
+      - name: Run Auto Grading
+        run: |
+
+          chmod +x tests/test.sh
+
+          ./tests/test.sh
+
+
+      # =====================================
+      # STEP 10
+      # =====================================
+
+      - name: Grading Completed
+        if: success()
+        run: |
+
+          echo ""
+          echo "=========================================="
+          echo "🎉 PROGRAM 4 & 5 COMPLETED"
+          echo "🎉 ALL TEST CASES PASSED"
+          echo "=========================================="
