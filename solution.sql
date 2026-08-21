@@ -6,8 +6,7 @@ CREATE TABLE Course(
     Credits INT,
     DepartmentID VARCHAR(10)NOT NULL
 );
-INSERT INTO
-    Course(CourseID,CourseName,Credits,DepartmentID)
+INSERT INTO Course(CourseID,CourseName,Credits,DepartmentID)
 VALUES
 (101,'database management system',4,1),
 (102,'data structures',3,2),
