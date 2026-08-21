@@ -1,8 +1,8 @@
-CREATE DATABASE tusionDB;
-USE tusionDB;
+CREATE DATABASE CollegeDB;
+USE CollegeDB;
 
 CREATE TABLE Course (
-    CourseID INT PRIMARY KEY,
+    CourseID VARCHAR(10) PRIMARY KEY,
     CourseName VARCHAR(50) NOT NULL,
     Credits INT,
     DepartmentID VARCHAR(10) NOT NULL
