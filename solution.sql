@@ -13,6 +13,12 @@ VALUES
 (102,'data structures',3,2),
 (103,'computer networks',4,3);
 SELECT*FROM Course;
+CREATE TABLE Student(
+    StudentID INT PRIMARY KEY,
+    StudentName VARCHAR(20),
+    Gender VARCHAR(10),
+    DepartmentID VARCHAR(10)
+);
 INSERT INTO Student(
     StudentID,StudentName,Gender,DepartmentID)
 VALUES
