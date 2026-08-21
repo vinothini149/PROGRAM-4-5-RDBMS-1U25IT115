@@ -1,32 +1,34 @@
-CREATE DATABASE collegeDB;
-USE collegeDB;
-
-CREATE TABLE Course(
-    CourseID INT PRIMARY KEY,
-    CourseName VARCHAR(200) NOT NULL,
-    Credits INT,
-    DepartmentID VARCHAR(10) NOT NULL
+CREATE DATABASE tusionDB;
+USE tusionDB;
+CREATE TABLE Course (
+    CourseID INT PRIMARY KEY,
+    CourseName VARCHAR(100),
+    Credits INT,
+    DepartmentID INT
 );
-
-INSERT INTO Course(CourseID, CourseName, Credits, DepartmentID)
+DESC Course;
+INSERT INTO Course (CourseID, CourseName, Credits, DepartmentID)
 VALUES
-(101, 'database management system', 4, '1'),
-(102, 'data structures', 3, '2'),
-(103, 'computer networks', 4, '3');
+(101, 'Database Management System', 4, 1),
+(102, 'Data Structures', 3, 2),
+(103, 'Computer Networks', 4, 3);
 
 SELECT * FROM Course;
 
+CREATE DATABASE schoolDB;
+USE schoolDB;
 CREATE TABLE Student(
-    StudentID INT PRIMARY KEY,
-    StudentName VARCHAR(20) NOT NULL,
+    StudentId VARCHAR(20),
+    StudentName VARCHAR(20),
     Gender VARCHAR(10),
-    DepartmentID VARCHAR(10) NOT NULL
+    DepartmentID VARCHAR(10)
 );
-
-INSERT INTO Student(StudentID, StudentName, Gender, DepartmentID)
+desc Student;
+INSERT INTO Student (StudentID, StudentName, Gender, DepartmentID)
 VALUES
-(1001, 'arun', 'male', '101'),
-(1002, 'divya', 'female', '102'),
-(1003, 'karthik', 'male', '101');
+(1001, 'Arun', 'Male', 101),
+(1002, 'Divya', 'Female', 102),
+(1003, 'Karthik', 'Male', 101);
 
 SELECT * FROM Student;
+
